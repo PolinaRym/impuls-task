@@ -1,0 +1,119 @@
+[
+    {
+        "class": "BTS",
+        "documentation": "Base Transmitter Station. This is the only root class",
+        "isRoot": true,
+        "parameters": [
+            {
+                "name": "id",
+                "type": "uint32"
+            },
+            {
+                "name": "name",
+                "type": "string"
+            }
+        ]
+    },
+    {
+        "class": "MGMT",
+        "documentation": "Management related",
+        "isRoot": false,
+        "parameters": [
+            {
+                "name": "BTS",
+                "type": "class"
+            }
+        ],
+        "min": "1",
+        "max": "1"
+    },
+    {
+        "class": "COMM",
+        "documentation": "Communication services",
+        "isRoot": false,
+        "parameters": [
+            {
+                "name": "BTS",
+                "type": "class"
+            }
+        ],
+        "min": "1",
+        "max": "1"
+    },
+    {
+        "class": "MetricJob",
+        "documentation": "Perfomance metric job",
+        "isRoot": false,
+        "parameters": [
+            {
+                "name": "isFinished",
+                "type": "boolean"
+            },
+            {
+                "name": "jobId",
+                "type": "uint32"
+            },
+            {
+                "name": "MGMT",
+                "type": "class"
+            }
+        ],
+        "min": "1",
+        "max": "1"
+    },
+    {
+        "class": "CPLANE",
+        "documentation": "Perfomance metric job",
+        "isRoot": false,
+        "parameters": [
+            {
+                "name": "MGMT",
+                "type": "class"
+            }
+        ],
+        "min": "1",
+        "max": "1"
+    },
+    {
+        "class": "RU",
+        "documentation": "Radio Unit hardware element",
+        "isRoot": false,
+        "parameters": [
+            {
+                "name": "hwRevision",
+                "type": "string"
+            },
+            {
+                "name": "id",
+                "type": "uint32"
+            },
+            {
+                "name": "ipv4Address",
+                "type": "string"
+            },
+            {
+                "name": "manufacturerName",
+                "type": "string"
+            },
+            {
+                "name": "HWE",
+                "type": "class"
+            }
+        ],
+        "min": "1",
+        "max": "1"
+    },
+    {
+        "class": "HWE",
+        "documentation": "Hardware equipment",
+        "isRoot": false,
+        "parameters": [
+            {
+                "name": "BTS",
+                "type": "class"
+            }
+        ],
+        "min": "1",
+        "max": "1"
+    }
+]
