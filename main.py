@@ -54,14 +54,38 @@ class ModelParser:
             if elem.tag == "Aggregation":
                 source = elem.attrib["source"]
                 target = elem.attrib["target"]
+                source_mult = elem.attrib["sourceMultiplicity"]
+                target_mult = elem.attrib["targetMultiplicity"]
 
-                # Добавляем связь только в source класс (родительский)
+                # Обрабатываем source multiplicity (для target класса)
+                if ".." in target_mult:
+                    target_min, target_max = target_mult.strip("[]").split("..")
+                else:
+                    target_min = target_max = target_mult
+
+                # Обрабатываем target multiplicity (для source класса)
+                if ".." in source_mult:
+                    source_min, source_max = source_mult.strip("[]").split("..")
+                else:
+                    source_min = source_max = source_mult
+
+                # Добавляем связь в source класс (родительский)
+                if target in classes:
+                    classes[target].relations.append(
+                        ClassRelation(
+                            name=source,
+                            min=source_min,
+                            max=source_max
+                        )
+                    )
+
+                # Добавляем связь в target класс (дочерний)
                 if source in classes:
                     classes[source].relations.append(
                         ClassRelation(
                             name=target,
-                            min=elem.attrib["targetMultiplicity"],
-                            max=elem.attrib["targetMultiplicity"]
+                            min=target_min,
+                            max=target_max
                         )
                     )
 
@@ -77,6 +101,16 @@ class ArtifactGenerator:
 
 class ConfigXmlGenerator(ArtifactGenerator):
     """Генератор config.xml"""
+
+    @staticmethod
+    def get_sample_value(type_str: str) -> str:
+        """Генерация тестовых значений по типу"""
+        samples = {
+            "uint32": "123",
+            "string": "sample",
+            "boolean": "true"
+        }
+        return samples.get(type_str, "unknown")
 
     @staticmethod
     def generate(classes: Dict[str, UMLClass]):
@@ -98,7 +132,8 @@ class ConfigXmlGenerator(ArtifactGenerator):
             xml_lines.append(f"{indent_str}<{cls.name}>")
 
             for attr in cls.attributes:
-                xml_lines.append(f"{indent_str}    <{attr.name}>{attr.type}</{attr.name}>")
+                sample_value = ConfigXmlGenerator.get_sample_value(attr.type)
+                xml_lines.append(f"{indent_str}    <{attr.name}>{sample_value}</{attr.name}>")
 
             for rel in cls.relations:
                 if rel.type == "class":
@@ -137,14 +172,18 @@ class MetaJsonGenerator(ArtifactGenerator):
                 ]
             }
 
+            # Добавляем связи как параметры типа "class"
             for rel in cls.relations:
                 if rel.type == "class":
-                    class_entry["parameters"].append({
+                    param_entry = {
                         "name": rel.name,
                         "type": "class"
-                    })
-                    class_entry["min"] = rel.min
-                    class_entry["max"] = rel.max
+                    }
+                    # Для корневого класса тоже добавляем min/max
+                    if not cls.is_root:
+                        param_entry["min"] = rel.min
+                        param_entry["max"] = rel.max
+                    class_entry["parameters"].append(param_entry)
 
             meta_data.append(class_entry)
 
