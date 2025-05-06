@@ -1,5 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <BTS>
-    <id>uint32</id>
-    <name>string</name>
+    <id>123</id>
+    <name>sample</name>
+    <MGMT>
+        <MetricJob>
+            <isFinished>true</isFinished>
+            <jobId>123</jobId>
+        </MetricJob>
+        <CPLANE>
+        </CPLANE>
+    </MGMT>
+    <HWE>
+        <RU>
+            <hwRevision>sample</hwRevision>
+            <id>123</id>
+            <ipv4Address>sample</ipv4Address>
+            <manufacturerName>sample</manufacturerName>
+        </RU>
+    </HWE>
+    <COMM>
+    </COMM>
 </BTS>

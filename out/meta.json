@@ -11,6 +11,18 @@
             {
                 "name": "name",
                 "type": "string"
+            },
+            {
+                "name": "MGMT",
+                "type": "class"
+            },
+            {
+                "name": "HWE",
+                "type": "class"
+            },
+            {
+                "name": "COMM",
+                "type": "class"
             }
         ]
     },
@@ -21,11 +33,23 @@
         "parameters": [
             {
                 "name": "BTS",
-                "type": "class"
+                "type": "class",
+                "min": "1",
+                "max": "1"
+            },
+            {
+                "name": "MetricJob",
+                "type": "class",
+                "min": "0",
+                "max": "100"
+            },
+            {
+                "name": "CPLANE",
+                "type": "class",
+                "min": "0",
+                "max": "1"
             }
-        ],
-        "min": "1",
-        "max": "1"
+        ]
     },
     {
         "class": "COMM",
@@ -34,11 +58,11 @@
         "parameters": [
             {
                 "name": "BTS",
-                "type": "class"
+                "type": "class",
+                "min": "1",
+                "max": "1"
             }
-        ],
-        "min": "1",
-        "max": "1"
+        ]
     },
     {
         "class": "MetricJob",
@@ -55,11 +79,11 @@
             },
             {
                 "name": "MGMT",
-                "type": "class"
+                "type": "class",
+                "min": "1",
+                "max": "1"
             }
-        ],
-        "min": "1",
-        "max": "1"
+        ]
     },
     {
         "class": "CPLANE",
@@ -68,11 +92,11 @@
         "parameters": [
             {
                 "name": "MGMT",
-                "type": "class"
+                "type": "class",
+                "min": "1",
+                "max": "1"
             }
-        ],
-        "min": "1",
-        "max": "1"
+        ]
     },
     {
         "class": "RU",
@@ -97,11 +121,11 @@
             },
             {
                 "name": "HWE",
-                "type": "class"
+                "type": "class",
+                "min": "1",
+                "max": "1"
             }
-        ],
-        "min": "1",
-        "max": "1"
+        ]
     },
     {
         "class": "HWE",
@@ -110,10 +134,16 @@
         "parameters": [
             {
                 "name": "BTS",
-                "type": "class"
+                "type": "class",
+                "min": "1",
+                "max": "1"
+            },
+            {
+                "name": "RU",
+                "type": "class",
+                "min": "0",
+                "max": "42"
             }
-        ],
-        "min": "1",
-        "max": "1"
+        ]
     }
 ]
